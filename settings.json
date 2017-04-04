@@ -1,0 +1,19 @@
+{
+    "train" : "train.py",
+    "data" : {
+        "raw": {
+            "DSB" : "./data/dcms",
+            "LUNA" :"./data/luna"
+        }, 
+        "roi":"./out/preprocessed"
+    },
+    "TRAIN_DATA_PATH" : 
+        {
+            "luna" : "input/luna"
+        },
+    "test" : "idk",
+    "model" : "models",
+    "output" : {
+        "lungROI":"./out/roi"
+    }
+}
