@@ -1,20 +1,17 @@
+import os
+import numpy as np
+import dicom
+import cv2
+import mxnet as mx
+import pandas as pd
+from multiprocessing import Pool
+
 img_rows = 512
 img_cols = 512
 smooth = 1.
 
-import os
-from multiprocessing import Pool
-import pickle
-import numpy as np
-import dicom
-import glob
-from matplotlib import pyplot as plt
-import cv2
-import mxnet as mx
-import pandas as pd
-from sklearn import cross_validation
+files = [i + '.npy' for i in pd.read_csv('./missing.csv')['id']]
 
-files = [i+'.npy' for i in pd.read_csv('./missing.csv')['id']]
 
 def get_extractor():
     model = mx.model.FeedForward.load('./resnet-50', 0, ctx=mx.cpu(), numpy_batch_size=1)
@@ -35,10 +32,8 @@ def get_3d_data(path):
 def get_data_id(path):
     sample_image = get_3d_data(path)
     sample_image[sample_image == -2000] = 0
-    # f, plots = plt.subplots(4, 5, sharex='col', sharey='row', figsize=(10, 8))
 
     batch = []
-    cnt = 0
     dx = 40
     ds = 512
     for i in range(0, sample_image.shape[0] - 3, 3):
@@ -54,16 +49,13 @@ def get_data_id(path):
         tmp = np.array(tmp)
         batch.append(np.array(tmp))
 
-        # if cnt < 20:
-        #     plots[cnt // 5, cnt % 5].axis('off')
-        #     plots[cnt // 5, cnt % 5].imshow(np.swapaxes(tmp, 0, 2))
-        # cnt += 1
-
-    # plt.show()
     batch = np.array(batch)
     return batch
-    
+
+
 net = get_extractor()
+
+
 def calc_features(id_):
     batch = np.mean(np.load('./stage1.1/%s' % str(files[id_])), axis=0)
     batch = np.array([batch])
@@ -73,6 +65,7 @@ def calc_features(id_):
     print(feats.shape)
     np.save('./stage1.1_features/{}'.format(files[id_]), feats)
 
+
 if __name__ == '__main__':
-    p = Pool(processes = 15)
-p.map(calc_features, range(2, len(files)))
+    p = Pool(processes=15)
+    p.map(calc_features, range(2, len(files)))
