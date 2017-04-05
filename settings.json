@@ -6,14 +6,15 @@
             "LUNA" :"./data/luna",
             "Labels" : "./data/stage1_labels.csv"
         }, 
-        "roi":"./mask/",
-        "features":"./train_features/"
+        "roi":"./out/mask/",
+        "features":"./out/train_features/"
     },
     "TRAIN_DATA_PATH" : 
         {
-            "luna" : "input/luna"
+            "luna" : "input/luna",
+            "Samples" : "'./data/stage1_sample_submission.csv'"
         },
-    "predictions" : "'./stage1_sample_submission.csv'",
+    "predictions" : "'./out/pred.csv'",
     "model" : "models",
     "output" : {
         "lungROI":"./out/roi"
