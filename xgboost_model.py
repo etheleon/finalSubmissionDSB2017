@@ -4,6 +4,7 @@
 import os
 import pickle
 import glob
+import json
 
 #Data Analysis Modules
 from matplotlib import pyplot as plt
@@ -25,11 +26,11 @@ img_cols = 512
 
 smooth = 1.
 
-def train_xgboost():
+def train_xgboost(labels,features):
     df = pd.read_csv('./stage1_labels.csv')
     print(df.head())
     
-    x = np.array([np.mean(np.load('stage1.1_features/%s.npy' % str(id)), axis=0) for id in df['id'].tolist()])
+    x = np.array([np.mean(np.load('./stage1.1_features/%s.npy' % str(id)), axis=0) for id in df['id'].tolist()])
     print(x.shape)
     y = df['cancer'].as_matrix()
     
@@ -55,4 +56,8 @@ def train_xgboost():
     return clfs, result
 
 if __name__ == '__main__':
-  train_xgboost()
+  with open("./settings.json") as data_file:
+      data = json.load(data_file)
+  labels = data["data"]["raw"]["Labels"]
+  features = data["data"]["features"]
+  train_xgboost(labels,features)
