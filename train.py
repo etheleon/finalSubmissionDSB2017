@@ -15,6 +15,9 @@ from skimage import measure, morphology
 import numpy as np
 from sklearn.cluster import KMeans
 
+#Custom Modules 
+import featuriser
+
 #logging.basicConfig(level=logging.INFO)
 logger = mp.log_to_stderr()
 logger.setLevel(logging.INFO)
@@ -62,7 +65,7 @@ def get_pixels_hu(slices):
     return np.array(image, dtype=np.int16)
 
 
-def preprocessing2(patientFolder):
+def mask_generator(patientFolder):
     '''
     Takes dicom slices and generates a numpy array
     Taken from https://www.kaggle.com/c/data-science-bowl-2017/details/tutorial#u-net-segmentation-approach-to-cancer-diagnosis
@@ -142,8 +145,12 @@ def preprocessing2(patientFolder):
     outputFile = "{}.npy".format(patientFolder)
     logger.info("saving to {}".format(outputFile))
     np.save(outputFile,final_images)
-    return
+    return final_images
 
+def features(patientFolder):
+    finial_images = mask_generator(patientFolder)
+    return featuriser.calc_features(finial_images)
+    
 if __name__ == '__main__':
     with open("./settings.json") as data_file:
         data = json.load(data_file)
@@ -153,5 +160,5 @@ if __name__ == '__main__':
     #patients = ['00cba091fa4ad62cc3200a657aeb957e']
     patientFolders = ["{}/{}".format(INPUT_FOLDER, patient) for patient in patients]
     p = mp.Pool(processes = 23)
-    p.map(preprocessing2, patientFolders)
+    p.map(features, patientFolders)
     #preprocessing2(patientFolders[0])
