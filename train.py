@@ -3,6 +3,7 @@
 #Custom Modules 
 from featuriser import calc_features
 from preprocessing import mask_generator
+from model import train_xgboost
 
 #logging.basicConfig(level=logging.INFO)
 logger = mp.log_to_stderr()
@@ -12,6 +13,7 @@ def features(patientFolder):
     finial_images = mask_generator(patientFolder)
     return calc_features(finial_images)
     
+def model
 if __name__ == '__main__':
     with open("./settings.json") as data_file:
         data = json.load(data_file)
