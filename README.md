@@ -40,6 +40,8 @@ Dockerfile found at 'https://github.com/Kaggle/docker-python'.
 
 * 3D Convolution Network built on NEON (v1.8.2)
 
+Download Resnet 50 layers at 
+http://data.dmlc.ml/mxnet/models/imagenet-11k-place365-ch/
 
 
 ## How to use our model
