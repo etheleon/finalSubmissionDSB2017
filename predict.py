@@ -3,6 +3,8 @@ import os
 import pickle
 import glob
 
+import json
+
 #Data Analysis 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -43,4 +45,8 @@ def predict(sample,predictions):
     print(df.head())
 
 if __name__ == '__main__':
-    predict()
+    with open("./settings.json") as data_file:
+      data = json.load(data_file)
+    sample = data["data"]["TRAIN_DATA_PATH"]["Samples"]
+    predictions = data["data"]["predictions"]
+    predict(sample,predictions)
