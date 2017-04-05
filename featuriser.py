@@ -56,15 +56,15 @@ def get_data_id(path):
 net = get_extractor()
 
 
-def calc_features(id_):
-    batch = np.mean(np.load('./stage1.1/%s' % str(files[id_])), axis=0)
+def calc_features(image):
+    batch = np.mean(image, axis=0)
     batch = np.array([batch])
     print("{} is Found ".format(str(id_)))
 
     feats = net.predict(batch)
     print(feats.shape)
     np.save('./stage1.1_features/{}'.format(files[id_]), feats)
-
+    return feats
 
 if __name__ == '__main__':
     p = Pool(processes=15)
