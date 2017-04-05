@@ -3,7 +3,7 @@
     "data" : {
         "raw": {
             "DSB" : "./data/dcms",
-            "LUNA" :"./data/luna".
+            "LUNA" :"./data/luna",
             "Labels" : "./data/stage1_labels.csv"
         }, 
         "roi":"./mask/",
