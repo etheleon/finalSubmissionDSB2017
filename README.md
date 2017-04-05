@@ -42,4 +42,8 @@ Dockerfile found at 'https://github.com/Kaggle/docker-python'.
 
 
 
-## How to train your model
+## How to use our model
+```
+python train.py 
+python predict.py
+```
