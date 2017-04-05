@@ -1,19 +1,28 @@
+#!/usr/bin/env python
+
+#In-Built Files
+import os
+import pickle
+import glob
+
+#Data Analysis Modules
+from matplotlib import pyplot as plt
+import numpy as np
+import pandas as pd
+
+#Image Analysis
+import dicom
+import cv2
+
+#Machine Learning Models
+import mxnet as mx
+from sklearn import cross_validation
+import xgboost as xgb
+
 img_rows = 512
 img_cols = 512
 
 smooth = 1.
-
-import os
-import pickle
-import numpy as np
-import dicom
-import glob
-from matplotlib import pyplot as plt
-import cv2
-import mxnet as mx
-import pandas as pd
-from sklearn import cross_validation
-import xgboost as xgb
 
 def train_xgboost():
     df = pd.read_csv('./stage1_labels.csv')
