@@ -43,7 +43,16 @@ Dockerfile found at 'https://github.com/Kaggle/docker-python'.
 
 
 ## How to use our model
+
 ```
-python train.py 
-python predict.py
+./train.py 
+./python predict.py
 ```
+
+If you have error running the above code try 
+```
+chmod +x train.py
+chmod +x predict.py
+```
+
+then the above code
