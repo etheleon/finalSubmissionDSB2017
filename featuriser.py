@@ -22,39 +22,7 @@ def get_extractor():
 
     return feature_extractor
 
-
-def get_3d_data(path):
-    slices = [dicom.read_file(path + '/' + s) for s in os.listdir(path)]
-    slices.sort(key=lambda x: int(x.InstanceNumber))
-    return np.stack([s.pixel_array for s in slices])
-
-
-def get_data_id(path):
-    sample_image = get_3d_data(path)
-    sample_image[sample_image == -2000] = 0
-
-    batch = []
-    dx = 40
-    ds = 512
-    for i in range(0, sample_image.shape[0] - 3, 3):
-        tmp = []
-        for j in range(3):
-            img = sample_image[i + j]
-            img = 255.0 / np.amax(img) * img
-            img = cv2.equalizeHist(img.astype(np.uint8))
-            img = img[dx: ds - dx, dx: ds - dx]
-            img = cv2.resize(img, (224, 224))
-            tmp.append(img)
-
-        tmp = np.array(tmp)
-        batch.append(np.array(tmp))
-
-    batch = np.array(batch)
-    return batch
-
-
 net = get_extractor()
-
 
 def calc_features(image):
     batch = np.mean(image, axis=0)
