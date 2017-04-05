@@ -5,7 +5,7 @@
             "DSB" : "./data/dcms",
             "LUNA" :"./data/luna"
         }, 
-        "roi":"./mask/"
+        "roi":"./mask/",
         "features":"./train_features/"
     },
     "TRAIN_DATA_PATH" : 
