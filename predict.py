@@ -22,7 +22,7 @@ img_cols = 512
 
 smooth = 1.
 
-def make_submit():
+def predict():
     try:
         clf = pickle.load(open("xgboostmodel.dat", "rb"))
         print("Opening Model")
@@ -43,4 +43,4 @@ def make_submit():
     print(df.head())
 
 if __name__ == '__main__':
-    make_submit()
+    predict()
