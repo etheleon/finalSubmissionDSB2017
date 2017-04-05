@@ -15,7 +15,7 @@
             "Samples" : "'./data/stage1_sample_submission.csv'"
         },
     "predictions" : "'./out/pred.csv'",
-    "model" : "models",
+    "model" : "./models/xgboostmode.pkl",
     "output" : {
         "lungROI":"./out/roi"
     }
