@@ -24,9 +24,9 @@ img_cols = 512
 
 smooth = 1.
 
-def predict(sample,predictions):
+def predict(sample,model,predictions):
     try:
-        clf = pickle.load(open("xgboostmodel.pkl", "rb"))
+        clf = pickle.load(open(model, "rb"))
         print("Opening Model")
     except:
         clf = train_xgboost()
@@ -35,7 +35,7 @@ def predict(sample,predictions):
     pred = []
     for id_ in df['id'].tolist():
             try:
-                x = np.mean(np.load('./stage1.1_features/%s.npy' % str(id_)), axis=0)
+                x = np.mean(np.load(sample+'%s.npy' % str(id_)), axis=0)
                 pred.append(clf.predict(np.array([x]))[0])
             except FileNotFoundError:
                 pred.append(0.25912670007158195)
@@ -49,4 +49,5 @@ if __name__ == '__main__':
       data = json.load(data_file)
     sample = data["data"]["TRAIN_DATA_PATH"]["Samples"]
     predictions = data["data"]["predictions"]
-    predict(sample,predictions)
+    model = data["data"]["model"]
+    predict(sample,model,predictions)
