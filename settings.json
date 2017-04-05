@@ -13,7 +13,7 @@
         {
             "luna" : "input/luna"
         },
-    "test" : "idk",
+    "predictions" : "'./stage1_sample_submission.csv'",
     "model" : "models",
     "output" : {
         "lungROI":"./out/roi"
