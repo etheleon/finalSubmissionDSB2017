@@ -31,7 +31,7 @@ def calc_features(image):
 
     feats = net.predict(batch)
     print(feats.shape)
-    np.save('./stage1.1_features/{}'.format(files[id_]), feats)
+    np.save('./out/preprocessed/{}'.format(files[id_]), feats)
     return feats
 
 if __name__ == '__main__':
