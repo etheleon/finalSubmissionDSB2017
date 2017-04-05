@@ -22,14 +22,14 @@ img_cols = 512
 
 smooth = 1.
 
-def predict():
+def predict(sample,predictions):
     try:
-        clf = pickle.load(open("xgboostmodel.dat", "rb"))
+        clf = pickle.load(open("xgboostmodel.pkl", "rb"))
         print("Opening Model")
     except:
         clf = train_xgboost()
 
-    df = pd.read_csv('./stage1_sample_submission.csv')
+    df = pd.read_csv(sample)
     pred = []
     for id_ in df['id'].tolist():
             try:
@@ -39,7 +39,7 @@ def predict():
                 pred.append(0.25912670007158195)
 
     df['cancer'] = pred
-    df.to_csv('./subm1.csv', index=False)
+    df.to_csv(predicitions, index=False)
     print(df.head())
 
 if __name__ == '__main__':
