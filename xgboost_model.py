@@ -17,11 +17,18 @@ import cv2
 
 #Machine Learning Models
 import mxnet as mx
+import xgboost as xgb
+
+#Model Evaluation
 from sklearn.model_selection import StratifiedKFold
-from sklearn.decomposition import PCA
+
+#Preprocessing the data
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import gmean
-import xgboost as xgb
+
+#Feature Selection and dimensional reduction
+from sklearn.decomposition import PCA
+#from sklearn.manifold import TSNE 
 
 img_rows = 512
 img_cols = 512
@@ -34,9 +41,12 @@ def train_xgboost(labels,features,model):
     
     x = np.array([np.mean(np.load(features + '/%s.npy' % str(id)), axis=0) for id in df['id'].tolist()])
     
-    #PCA and feature selection / We have not tried the TSNE one yet
+    #PCA and feature selection 
     X_std = StandardScaler().fit_transform(x)
-    x_pca = PCA(n_components = 13).fit(X_std)
+    x_pca = PCA(n_components = 60).fit(X_std)
+    
+    #We have not tried the TSNE one yet
+    #x_tsne = TSNE(learning_rate=500).fit_transform(x)
     
     y = df['cancer'].as_matrix()
     
@@ -45,7 +55,7 @@ def train_xgboost(labels,features,model):
     
     result =[]
     clfs = []
-    for train_index, test_index in skf.split(x, y):
+    for train_index, test_index in skf.split(x_pca, y):
         trn_x, val_x = x[train_index,:], x[test_index,:]
         trn_y, val_y = y[train_index], y[test_index]
         
