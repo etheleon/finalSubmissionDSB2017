@@ -3,6 +3,7 @@
 #In_Built Libaries
 import os
 import glob
+import time
 from multiprocessing import Pool
 
 #Data Analysis
@@ -32,13 +33,15 @@ def get_extractor():
 net = get_extractor()
 
 def calc_features(image):
+    start_time = time.time()
     batch = np.mean(image, axis=0)
     batch = np.array([batch])
     print("{} is Found ".format(str(id_)))
 
     feats = net.predict(batch)
-    print(feats.shape)
+    # print(feats.shape)
     np.save('./train_features/{}'.format(files[id_]), feats)
+    print("Generating is finished in --- %s seconds ---" % (time.time() - start_time))
     return feats
 
 if __name__ == '__main__':
