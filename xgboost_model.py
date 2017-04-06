@@ -53,7 +53,26 @@ def train_xgboost(labels,features):
         clfs.append(clf)
 
     pickle.dump(clf, open("xgboostmodel.pkl", "wb"))
-    return clfs, result
+    return result
+
+def xgboostModel(sample,model):
+    try:
+        clf = pickle.load(open(model, "rb"))
+        print("Opening Model")
+    except:
+        clf = train_xgboost()
+
+    df = pd.read_csv(sample)
+    pred = []
+    for id_ in df['id'].tolist():
+            try:
+                x = np.mean(np.load(sample+'%s.npy' % str(id_)), axis=0)
+                pred.append(clf.predict(np.array([x]))[0])
+            except FileNotFoundError:
+                pred.append(0.25912670007158195)
+    
+    df['cancer'] = pred
+    return pred
 
 if __name__ == '__main__':
   with open("./settings.json") as data_file:
