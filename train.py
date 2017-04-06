@@ -26,5 +26,7 @@ if __name__ == '__main__':
     patientFolders = ["{}/{}".format(INPUT_FOLDER, patient) for patient in patients]
     p = mp.Pool(processes = 23)
     p.map(features, patientFolders)
-    train_xgboost()
+    labels = data["data"]["raw"]["Labels"]
+    features = data["data"]["features"]
+    train_xgboost(labels,features)
     #preprocessing2(patientFolders[0])
