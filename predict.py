@@ -19,28 +19,19 @@ import mxnet as mx
 from sklearn import cross_validation
 import xgboost as xgb
 
+#Custom Modules
+import BloodModel
+import xgboost_model
+
 img_rows = 512
 img_cols = 512
 
 smooth = 1.
 
+
 def predict(sample,model,predictions):
-    try:
-        clf = pickle.load(open(model, "rb"))
-        print("Opening Model")
-    except:
-        clf = train_xgboost()
-
-    df = pd.read_csv(sample)
-    pred = []
-    for id_ in df['id'].tolist():
-            try:
-                x = np.mean(np.load(sample+'%s.npy' % str(id_)), axis=0)
-                pred.append(clf.predict(np.array([x]))[0])
-            except FileNotFoundError:
-                pred.append(0.25912670007158195)
-
-    df['cancer'] = pred
+    xgboost(sample,model)
+    BloodPredict(sample,model)
     df.to_csv(predicitions, index=False)
     print(df.head())
 
