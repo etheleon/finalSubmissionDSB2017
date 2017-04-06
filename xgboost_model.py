@@ -43,7 +43,7 @@ def train_xgboost(labels,features,model):
     
     #PCA and feature selection 
     X_std = StandardScaler().fit_transform(x)
-    x_pca = PCA(n_components = 60).fit(X_std)
+    x_pca = PCA(n_components = 45).fit(X_std)
     
     #We have not tried the TSNE one yet
     #x_tsne = TSNE(learning_rate=500).fit_transform(x)
