@@ -2,6 +2,7 @@
 import os
 import logging
 import multiprocessing as mp
+import time
 #import argparse
 
 import json
@@ -95,11 +96,11 @@ def mask_generator(patientFolder):
                     good_labels.append(prop.label)
             mask = np.ndarray([512,512],dtype=np.int8)
             mask[:] = 0
-                #
-                #  The mask here is the mask for the lungs--not the nodes
-                #  After just the lungs are left, we do another large dilation
-                #  in order to fill in and out the lung mask
-                #
+            #
+            #  The mask here is the mask for the lungs--not the nodes
+            #  After just the lungs are left, we do another large dilation
+            #  in order to fill in and out the lung mask
+            #
             for N in good_labels:
                 mask = mask + np.where(labels==N,1,0)
             mask = morphology.dilation(mask,np.ones([10,10])) # one last dilation
@@ -117,7 +118,7 @@ def mask_generator(patientFolder):
             img = img*0
             return img
 
-
+    start_time = time.time()
     first_patient = load_scan(patientFolder)
     final_images = np.ndarray([int(len(first_patient)/3),3,512,512],dtype=np.float32)
 
@@ -137,4 +138,5 @@ def mask_generator(patientFolder):
     outputFile = "{}.npy".format(patientFolder)
     logger.info("saving to {}".format(outputFile))
     np.save(outputFile,final_images)
+    print("Preprocessing is finished in --- %s seconds ---" % (time.time() - start_time))
     return final_images
