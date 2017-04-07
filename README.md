@@ -1,4 +1,7 @@
 ## Team
+* Wesely Goi
+* Calvin Canh Tran
+* Ang Ming Liang
 
 ## Hardware
 
