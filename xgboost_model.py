@@ -75,9 +75,14 @@ def xgboostModel(sample, model):
         clf = pickle.load(open(model, "rb"))
         print("Opening Model")
     except:
-        clf = train_xgboost()
+        with open("./settings.json") as data_file:
+            data = json.load(data_file)
+        labels = data["data"]["raw"]["Labels"]
+        features = data["data"]["features"]
+        clf = train_xgboost(labels, features, model)
 
     # Make predicitions
+    print(sample)
     df = pd.read_csv(sample)
     pred = []
     for id_ in df['id'].tolist():
@@ -89,7 +94,7 @@ def xgboostModel(sample, model):
             pred.append(0.25912670007158195)
 
     df['cancer'] = pred
-    return pred
+    return df
 
 
 if __name__ == '__main__':
