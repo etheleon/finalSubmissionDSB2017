@@ -3,15 +3,15 @@
 # In built function
 import json
 
-#Custom Modules 
+#Custom Modules
 from featuriser import calc_features
 from preprocessing import mask_generator
 from xgboost_model import train_xgboost
 
 def features(patientFolder):
-    finial_images = mask_generator(patientFolder)
-    return calc_features(finial_images)
-    
+    final_images = mask_generator(patientFolder)
+    return calc_features(final_images)
+
 if __name__ == '__main__':
     with open("./settings.json") as data_file:
         data = json.load(data_file)
