@@ -71,7 +71,7 @@ def train_xgboost(labels,features,model):
         result.append(clf.best_score)
         clfs.append(clf)
 
-    pickle.dump(clf, open(model, "wb"))
+    pickle.dump(clfs, open(model, "wb"))
     return result
 
 def xgboostModel(sample,model):
