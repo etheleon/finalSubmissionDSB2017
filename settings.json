@@ -2,9 +2,9 @@
     "train" : "train.py",
     "data" : {
         "raw": {
-            "DSB" : "./data/dcms",
+            "DSB" : "./stage1.1",
             "LUNA" :"./data/luna",
-            "Labels" : "./data/stage1_labels.csv"
+            "Labels" : "./stage1_labels.csv"
         }, 
         "roi":"./out/mask/",
         "features":"./out/train_features/"
@@ -12,10 +12,10 @@
     "TRAIN_DATA_PATH" : 
         {
             "luna" : "input/luna",
-            "Samples" : "'./data/stage1_sample_submission.csv'"
+            "Samples" : "./stage1_sample_submission.csv"
         },
-    "predictions" : "'./out/pred.csv'",
-    "model" : "./models/xgboostmode.pkl",
+    "predictions" : "./pred.csv",
+    "model" : "./models/xgboostmodel.pkl",
     "output" : {
         "lungROI":"./out/roi"
     }
