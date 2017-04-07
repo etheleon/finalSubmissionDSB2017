@@ -49,7 +49,7 @@ def train_xgboost(labels, features, model):
     result = []
     clfs = []
     for train_index, test_index in skf.split(x_pca, y):
-        trn_x, val_x = x[train_index, :], x[test_index, :]
+        trn_x, val_x = x_pca[train_index, :], x_pca[test_index, :]
         trn_y, val_y = y[train_index], y[test_index]
 
         # XGBoost Model
