@@ -8,10 +8,6 @@ from featuriser import calc_features
 from preprocessing import mask_generator
 from xgboost_model import train_xgboost
 
-#logging.basicConfig(level=logging.INFO)
-logger = mp.log_to_stderr()
-logger.setLevel(logging.INFO)
-
 def features(patientFolder):
     finial_images = mask_generator(patientFolder)
     return calc_features(finial_images)
