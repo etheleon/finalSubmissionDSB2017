@@ -104,16 +104,19 @@ def mask_generator(patientFolder):
             for N in good_labels:
                 mask = mask + np.where(labels==N,1,0)
             mask = morphology.dilation(mask,np.ones([10,10])) # one last dilation
-            img = mask*img
+            if np.amax(mask) == 0 & np.amin(mask)== 0: #cause some of the slices are actually the abdomen
+                img = img * 0
+                return img
+            else:
+                img = mask*img
+                new_mean = np.mean(img[mask>0])
+                new_std = np.std(img[mask>0])
 
-            new_mean = np.mean(img[mask>0])
-            new_std = np.std(img[mask>0])
-
-            old_min = -100     # background color
-            img[img==old_min] = new_mean-1.2*new_std   # resetting backgound color
-            img = img-new_mean
-            img = img/new_std
-            return img
+                old_min = -100     # background color
+                img[img==old_min] = new_mean-1.2*new_std   # resetting backgound color
+                img = img-new_mean
+                img = img/new_std
+                return img
         else:
             img = img*0
             return img
@@ -123,7 +126,7 @@ def mask_generator(patientFolder):
     final_images = np.ndarray([int(len(first_patient)/3),3,512,512],dtype=np.float32)
 
     fullRange = [i for i in range(0,len(first_patient),3)]
-    fullRange.pop()
+    fullRange.pop() #throw away the tail might not have enough to build RGB
     for i in fullRange:
         logger.info("Processing {} {}th slice".format(patientFolder, i))
         try:

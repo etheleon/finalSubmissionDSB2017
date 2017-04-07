@@ -1,4 +1,7 @@
 ## Team
+* Wesely Goi
+* Calvin Canh Tran
+* Ang Ming Liang
 
 ## Hardware
 
@@ -35,13 +38,13 @@ Linux compute 2.6.32-504.16.2.el6.x86_64 #1 SMP Wed Apr 22 06:48:29 UTC 2015 x86
 
 ## Dependencies
 
-Everything is run within a docker container pulled from dockerhub. `docker pull kaggle/python`.
-Dockerfile found at 'https://github.com/Kaggle/docker-python'.
+* Everything is run within a docker container pulled from dockerhub. `docker pull kaggle/python`. Dockerfile found at 'https://github.com/Kaggle/docker-python'.
 
 * 3D Convolution Network built on NEON (v1.8.2)
 
-Download Resnet 50 layers at 
-http://data.dmlc.ml/mxnet/models/imagenet-11k-place365-ch/
+* Github for 3D unet https://github.com/anlthms/dsb-2017
+
+* Download Resnet 50 layers at http://data.dmlc.ml/mxnet/models/imagenet-11k-place365-ch/
 
 
 ## How to use our model
